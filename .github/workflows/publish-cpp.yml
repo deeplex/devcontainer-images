@@ -6,6 +6,8 @@ on:
       - master
     paths:
       - 'src/cpp/**'
+  schedule:
+    - cron: '0 5 10 * *'
 
 env:
   REGISTRY: ghcr.io
