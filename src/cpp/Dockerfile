@@ -3,20 +3,22 @@ FROM mcr.microsoft.com/devcontainers/base:ubuntu-22.04
 USER root
 SHELL [ "/bin/bash", "-c" ]
 
+ADD llvm-snapshot.gpg.key.asc /etc/apt/trusted.gpg.d/llvm-snapshot.asc
+ADD llvm-toolchain.list /etc/apt/sources.list.d/llvm-toolchain.list
 RUN export DEBIAN_FRONTEND=noninteractive; \
     apt-get -qq update && apt-get -qq install --no-install-recommends \
     bash-completion \
     build-essential \
-    clang-15 \
-    clang-format-15 \
-    clang-tidy-15 \
+    clang-16 \
+    clang-format-16 \
+    clang-tidy-16 \
     curl \
     g++-12 \
     gcc-12 \
     gdb \
     git \
-    lldb-15 \
-    llvm-15 \
+    lldb-16 \
+    llvm-16 \
     ninja-build \
     pkg-config \
     python3 \
@@ -29,7 +31,7 @@ RUN export DEBIAN_FRONTEND=noninteractive; \
     && apt-get -qq clean \
     && rm -rf /var/lib/apt/lists/* \
     && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 120 --slave /usr/bin/g++ g++ /usr/bin/g++-12 \
-    && update-alternatives --install /usr/bin/clang clang /usr/bin/clang-15 150 --slave /usr/bin/clang++ clang++ /usr/bin/clang++-15
+    && update-alternatives --install /usr/bin/clang clang /usr/bin/clang-16 160 --slave /usr/bin/clang++ clang++ /usr/bin/clang++-16
 
 ARG CMAKE_VERSION="3.22.6"
 RUN declare -A archs=( ["amd64"]="x86_64" ["arm64"]="aarch64" ); \
