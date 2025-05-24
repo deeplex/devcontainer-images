@@ -41,9 +41,9 @@ jobs:
           images: ${{ env.REGISTRY }}/deeplex/devcontainer-cpp
           flavor: |
             latest=false
-            prefix=ubuntu-22.04-,onlatest=true
+            prefix=ubuntu-24.04-,onlatest=true
           tags: |
-            type=raw,value=ubuntu-22.04,prefix=
+            type=raw,value=ubuntu-24.04,prefix=
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v6

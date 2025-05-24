@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/devcontainers/base:ubuntu-22.04
+FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04
 
 USER root
 SHELL [ "/bin/bash", "-c" ]
@@ -9,20 +9,21 @@ RUN export DEBIAN_FRONTEND=noninteractive; \
     apt-get -qq update && apt-get -qq install --no-install-recommends \
     bash-completion \
     build-essential \
-    clang-16 \
-    clang-format-16 \
-    clang-tidy-16 \
+    clang-19 \
+    clang-format-19 \
+    clang-tidy-19 \
     curl \
-    g++-12 \
-    gcc-12 \
+    g++-14 \
+    gcc-14 \
     gdb \
     git \
-    lldb-16 \
-    llvm-16 \
+    lldb-19 \
+    llvm-19 \
     ninja-build \
     pkg-config \
     python3 \
     python3-pip \
+    python3-venv \
     tar \
     unzip \
     zip \
@@ -30,8 +31,8 @@ RUN export DEBIAN_FRONTEND=noninteractive; \
     && apt-get -qq autoremove \
     && apt-get -qq clean \
     && rm -rf /var/lib/apt/lists/* \
-    && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 120 --slave /usr/bin/g++ g++ /usr/bin/g++-12 \
-    && update-alternatives --install /usr/bin/clang clang /usr/bin/clang-16 160 --slave /usr/bin/clang++ clang++ /usr/bin/clang++-16
+    && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 140 --slave /usr/bin/g++ g++ /usr/bin/g++-14 \
+    && update-alternatives --install /usr/bin/clang clang /usr/bin/clang-19 190 --slave /usr/bin/clang++ clang++ /usr/bin/clang++-19
 
 ARG CMAKE_VERSION="3.22.6"
 RUN declare -A archs=( ["amd64"]="x86_64" ["arm64"]="aarch64" ); \
@@ -62,5 +63,3 @@ RUN mkdir -p "$VCPKG_ROOT" \
     && echo 'export VCPKG_DOWNLOADS="$HOME/.cache/vcpkg/downloads"' >> ~vscode/.bash_profile
 
 USER vscode
-
-RUN python3 -m pip install --user pipenv
