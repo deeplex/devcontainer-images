@@ -13,6 +13,7 @@ RUN export DEBIAN_FRONTEND=noninteractive; \
     clang-20 \
     clang-format-20 \
     clang-tidy-20 \
+    clang++-20 \
     clangd-20 \
     curl \
     g++-14 \
