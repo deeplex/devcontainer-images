@@ -23,10 +23,14 @@ RUN export DEBIAN_FRONTEND=noninteractive; \
     lldb-19 \
     llvm-19 \
     ninja-build \
+    pipx \
     pkg-config \
     python3 \
+    python3-doc \
     python3-pip \
     python3-venv \
+    python3-dev \
+    python3-tk \
     tar \
     unzip \
     zip \
