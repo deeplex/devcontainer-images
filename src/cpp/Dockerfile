@@ -36,7 +36,7 @@ RUN export DEBIAN_FRONTEND=noninteractive; \
     && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 140 --slave /usr/bin/g++ g++ /usr/bin/g++-14 \
     && update-alternatives --install /usr/bin/clang clang /usr/bin/clang-20 200 --slave /usr/bin/clang++ clang++ /usr/bin/clang++- --slave /usr/bin/clangd clangd /usr/bin/clangd-20
 
-ARG CMAKE_VERSION="3.22.6"
+ARG CMAKE_VERSION="3.31.7"
 RUN declare -A archs=( ["amd64"]="x86_64" ["arm64"]="aarch64" ); \
     architecture=$(dpkg --print-architecture); \
     echo "Detected arch: $architecture => ${archs[$architecture]}"; \
