@@ -6,12 +6,14 @@ SHELL [ "/bin/bash", "-c" ]
 ADD llvm-snapshot.gpg.key.asc /etc/apt/trusted.gpg.d/llvm-snapshot.asc
 ADD llvm-toolchain.list /etc/apt/sources.list.d/llvm-toolchain.list
 RUN export DEBIAN_FRONTEND=noninteractive; \
-    apt-get -qq update && apt-get -qq install --no-install-recommends \
+    echo "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-20 main" >> /etc/apt/sources.list \
+    && apt-get -qq update && apt-get -qq install --no-install-recommends \
     bash-completion \
     build-essential \
-    clang-19 \
-    clang-format-19 \
-    clang-tidy-19 \
+    clang-20 \
+    clang-format-20 \
+    clang-tidy-20 \
+    clangd-20 \
     curl \
     g++-14 \
     gcc-14 \
@@ -32,7 +34,7 @@ RUN export DEBIAN_FRONTEND=noninteractive; \
     && apt-get -qq clean \
     && rm -rf /var/lib/apt/lists/* \
     && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 140 --slave /usr/bin/g++ g++ /usr/bin/g++-14 \
-    && update-alternatives --install /usr/bin/clang clang /usr/bin/clang-19 190 --slave /usr/bin/clang++ clang++ /usr/bin/clang++-19
+    && update-alternatives --install /usr/bin/clang clang /usr/bin/clang-20 200 --slave /usr/bin/clang++ clang++ /usr/bin/clang++- --slave /usr/bin/clangd clangd /usr/bin/clangd-20
 
 ARG CMAKE_VERSION="3.22.6"
 RUN declare -A archs=( ["amd64"]="x86_64" ["arm64"]="aarch64" ); \
