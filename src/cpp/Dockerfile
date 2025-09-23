@@ -4,7 +4,6 @@ USER root
 SHELL [ "/bin/bash", "-c" ]
 
 ADD llvm-snapshot.gpg.key.asc /etc/apt/trusted.gpg.d/llvm-snapshot.asc
-ADD llvm-toolchain.list /etc/apt/sources.list.d/llvm-toolchain.list
 RUN export DEBIAN_FRONTEND=noninteractive; \
     echo "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-20 main" >> /etc/apt/sources.list \
     && apt-get -qq update && apt-get -qq install --no-install-recommends \
@@ -20,17 +19,16 @@ RUN export DEBIAN_FRONTEND=noninteractive; \
     gcc-14 \
     gdb \
     git \
-    lldb-19 \
-    llvm-19 \
+    llvm-dap-20 \
     ninja-build \
     pipx \
     pkg-config \
     python3 \
+    python3-dev \
     python3-doc \
     python3-pip \
-    python3-venv \
-    python3-dev \
     python3-tk \
+    python3-venv \
     tar \
     unzip \
     zip \
