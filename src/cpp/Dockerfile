@@ -23,7 +23,7 @@ RUN export DEBIAN_FRONTEND=noninteractive; \
     gdb \
     git \
     golang \
-    lldb-dap-${LLVM_VERSION} \
+    lldb-${LLVM_VERSION} \
     nasm \
     ninja-build \
     pipx \
