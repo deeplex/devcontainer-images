@@ -3,23 +3,28 @@ FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04
 USER root
 SHELL [ "/bin/bash", "-c" ]
 
+ARG GCC_VERSION=14
+ARG LLVM_VERSION=20
+
 ADD llvm-snapshot.gpg.key.asc /etc/apt/trusted.gpg.d/llvm-snapshot.asc
 RUN export DEBIAN_FRONTEND=noninteractive; \
-    echo "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-20 main" >> /etc/apt/sources.list \
+    echo "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-${LLVM_VERSION} main" >> /etc/apt/sources.list \
     && apt-get -qq update && apt-get -qq install --no-install-recommends \
     bash-completion \
     build-essential \
-    clang-20 \
-    clang-format-20 \
-    clang-tidy-20 \
-    clang++-20 \
-    clangd-20 \
+    clang-${LLVM_VERSION} \
+    clang-format-${LLVM_VERSION} \
+    clang-tidy-${LLVM_VERSION} \
+    clang++-${LLVM_VERSION} \
+    clangd-${LLVM_VERSION} \
     curl \
-    g++-14 \
-    gcc-14 \
+    g++-${GCC_VERSION} \
+    gcc-${GCC_VERSION} \
     gdb \
     git \
-    llvm-dap-20 \
+    golang \
+    lldb-dap-${LLVM_VERSION} \
+    nasm \
     ninja-build \
     pipx \
     pkg-config \
@@ -36,8 +41,8 @@ RUN export DEBIAN_FRONTEND=noninteractive; \
     && apt-get -qq autoremove \
     && apt-get -qq clean \
     && rm -rf /var/lib/apt/lists/* \
-    && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 140 --slave /usr/bin/g++ g++ /usr/bin/g++-14 \
-    && update-alternatives --install /usr/bin/clang clang /usr/bin/clang-20 200 --slave /usr/bin/clang++ clang++ /usr/bin/clang++-20 --slave /usr/bin/clangd clangd /usr/bin/clangd-20
+    && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-${GCC_VERSION} ${GCC_VERSION}0 --slave /usr/bin/g++ g++ /usr/bin/g++-${GCC_VERSION} \
+    && update-alternatives --install /usr/bin/clang clang /usr/bin/clang-${LLVM_VERSION} ${LLVM_VERSION}0 --slave /usr/bin/clang++ clang++ /usr/bin/clang++-${LLVM_VERSION} --slave /usr/bin/clangd clangd /usr/bin/clangd-${LLVM_VERSION} --slave /usr/bin/lldb-dap lldb-dap /usr/bin/lldb-dap-${LLVM_VERSION}
 
 ARG CMAKE_VERSION="3.31.7"
 RUN declare -A archs=( ["amd64"]="x86_64" ["arm64"]="aarch64" ); \
