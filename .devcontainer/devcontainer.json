@@ -11,7 +11,7 @@
             "omzPlugins": "https://github.com/zsh-users/zsh-autosuggestions",
             "username": "root"
         },
-        "ghcr.io/devcontainers/features/docker-in-docker:2": {
+        "ghcr.io/devcontainers/features/docker-in-docker:4": {
             "azureDnsAutoDetection": false,
         },
     },
